@@ -1,0 +1,24 @@
+# CustomTextNode.py
+class CustomTextNode:
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                # "text": ("STRING", {"multiline": True}),
+                "text": ("STRING", {"default": True}),
+            }
+        }
+
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "generate"
+    CATEGORY = "Custom Nodes"
+
+    def generate(self, **kwargs):
+        # 获取输入文本
+        text = kwargs.get("text")
+        # 这里可以做文本处理、模板替换等
+        return (text,)
+
+# 注册节点
+NODE_CLASS_MAPPINGS = {"CustomTextNode": CustomTextNode}
+NODE_DISPLAY_NAME_MAPPINGS = {"CustomTextNode": "Custom Text Node"}

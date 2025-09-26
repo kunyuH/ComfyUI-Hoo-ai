@@ -1,0 +1,21 @@
+.idea
+/output
+/.venv
+/.vscode
+/dist
+/data
+/build
+/main
+/export
+/pack
+/klib
+/logs
+/.spider
+.env
+/auth
+# 忽略所有缓存文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
