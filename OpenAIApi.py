@@ -4,7 +4,7 @@ from PIL import Image
 import torch
 import numpy as np
 
-class CustomAIImageNode:
+class OpenAIApi:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -82,5 +82,5 @@ class CustomAIImageNode:
             raise Exception(f"CustomAIImageNode 错误: {str(e)}")
 
 # 注册节点
-NODE_CLASS_MAPPINGS = {"CustomAIImageNode": CustomAIImageNode}
+NODE_CLASS_MAPPINGS = {"CustomAIImageNode": OpenAIApi}
 NODE_DISPLAY_NAME_MAPPINGS = {"CustomAIImageNode": "OpenAi 文生图 API"}

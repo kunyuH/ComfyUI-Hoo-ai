@@ -1,5 +1,5 @@
-# CustomTextNode.py
-class CustomTextNode:
+# CustomText.py
+class CustomText:
     @classmethod
     def INPUT_TYPES(cls):
         return {
@@ -20,5 +20,5 @@ class CustomTextNode:
         return (text,)
 
 # 注册节点
-NODE_CLASS_MAPPINGS = {"CustomTextNode": CustomTextNode}
-NODE_DISPLAY_NAME_MAPPINGS = {"CustomTextNode": "Custom Text Node"}
+NODE_CLASS_MAPPINGS = {"CustomText": CustomText}
+NODE_DISPLAY_NAME_MAPPINGS = {"CustomText": "文本输入"}
