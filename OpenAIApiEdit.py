@@ -4,7 +4,7 @@ from PIL import Image
 import torch
 import numpy as np
 
-from .utils.tools import tensor_to_base64
+from .utils.tools import tensor_to_base64, tensor_to_buffered
 
 
 class OpenAIApiEdit:
@@ -13,12 +13,16 @@ class OpenAIApiEdit:
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
-                "image": ("IMAGE",),
                 "api_key": ("STRING", {"default": ""}),
                 "api_url": ("STRING", {"default": ""}),
                 "n": ("INT", {"default": 1}),
                 "model": ("STRING", {"default": "gpt-image-1"}),  # 可用 "gpt-4o-mini" 或 "gpt-4.1-mini" 等
                 "size": ("STRING", {"default": "1024x1024"}),    # 可选 "256x256", "512x512", "1024x1024"
+            },
+            "optional":{
+                "image1": ("IMAGE", {"default": ""}),
+                "image2": ("IMAGE", {"default": ""}),
+                "mask": ("IMAGE", {"default": ""}),
             }
         }
 
@@ -28,41 +32,52 @@ class OpenAIApiEdit:
 
     def generate(self, **kwargs):
         prompt = kwargs.get("prompt")
-        image = kwargs.get("image")
+        image1 = kwargs.get("image1")
+        image2 = kwargs.get("image2")
+        mask = kwargs.get("mask")
         api_key = kwargs.get("api_key")
         api_url = kwargs.get("api_url")
         n = kwargs.get("n")
         model = kwargs.get("model", "gpt-4o-mini")
         size = kwargs.get("size", "1024x1024")
 
-        image_base64 = tensor_to_base64(image)
-
-        # 图片上传到云存储
-        image_url = requests.post(f"https://aigc-art.semirapp.com/open-api/common/upload-file-b64", json={
-            "file_base64": image_base64,
-            "appid": 'ComfyUI_2025',
-            "secret": 'Semir_2025',
-        }).json().get('data',{}).get('full_path','')
-
         headers = {
             "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
         }
 
         payload = {
             "model": model,
-            "image": [
-                image_url
-            ],
             "prompt": prompt,
             "n": n,
             "size": size
         }
 
         try:
-            # 调用 OpenAI 官方 Images API
-            resp = requests.post(f"{api_url}images/generations", json=payload, headers=headers)
-            resp.raise_for_status()
+            print("****************************")
+            print(f"{api_url}images/edits")
+            # 文生图
+            if image1 is None and image2 is None and mask is None:
+                print(f"===prompt to image===")
+                headers['Content-Type'] = "application/json"
+                # 调用 OpenAI 官方 Images API
+                resp = requests.post(f"{api_url}images/generations", json=payload, headers=headers)
+                resp.raise_for_status()
+            # 图文生图
+            else:
+                print(f"===prompt and image to image===")
+                files = []
+                if image1 is not None:
+                    image1_buffered = tensor_to_buffered(image1)
+                    files.append(("image", ("upload.png", image1_buffered, "image/png")))
+                if image2 is not None:
+                    image2_buffered = tensor_to_buffered(image2)
+                    files.append(("image", ("upload.png", image2_buffered, "image/png")))
+                if mask is not None:
+                    mask_buffered = tensor_to_buffered(mask)
+                    files.append(("mask", ("mask.png", mask_buffered, "image/png")))
+                resp = requests.post(f"{api_url}images/edits", data=payload, files=files, headers=headers, verify=False)
+                resp.raise_for_status()
+            print(resp.text)
             data = resp.json()
 
             img_tensors = []
@@ -88,9 +103,9 @@ class OpenAIApiEdit:
         except requests.exceptions.HTTPError as e:
             # 专门处理HTTP错误，提供更清晰的API访问问题提示
             if e.response.status_code == 500:
-                raise Exception(f"CustomAIImageNode API Error: 服务器内部错误，请检查API URL是否正确或稍后再试。详细错误: {str(e)}")
+                raise Exception(f"CustomAIImageNode API Error: 服务器内部错误，请检查API URL是否正确或稍后再试。详细错误: {str(e)};内容: {e.response.text}")
             else:
-                raise Exception(f"CustomAIImageNode API Error: HTTP错误 {e.response.status_code}。请检查API密钥、URL和网络连接。详细错误: {str(e)}")
+                raise Exception(f"CustomAIImageNode API Error: HTTP错误 {e.response.status_code}。请检查API密钥、URL和网络连接。详细错误: {str(e)}；内容: {e.response.text}")
         except requests.exceptions.RequestException as e:
             # 处理其他请求异常（如连接问题、超时等）
             raise Exception(f"CustomAIImageNode 网络错误: 无法连接到API服务器。请检查网络连接和API URL是否正确。详细错误: {str(e)}")
