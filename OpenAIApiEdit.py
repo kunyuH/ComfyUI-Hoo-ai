@@ -4,7 +4,7 @@ from PIL import Image
 import torch
 import numpy as np
 
-from .utils.tools import tensor_to_base64, tensor_to_buffered
+from .src.utils.tools import tensor_to_buffered
 
 
 class OpenAIApiEdit:
