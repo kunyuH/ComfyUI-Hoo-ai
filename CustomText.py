@@ -11,7 +11,7 @@ class CustomText:
 
     RETURN_TYPES = ("STRING",)
     FUNCTION = "generate"
-    CATEGORY = "Custom Nodes"
+    CATEGORY = "Semir Hoo ai"
 
     def generate(self, **kwargs):
         # 获取输入文本
