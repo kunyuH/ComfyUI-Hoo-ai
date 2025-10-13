@@ -19,7 +19,7 @@ class MultiImageURLNode:
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "load_imagesw"
-    CATEGORY = "Custom Nodes"
+    CATEGORY = "Semir Hoo ai"
 
     """
     单张

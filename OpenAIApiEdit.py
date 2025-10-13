@@ -28,7 +28,7 @@ class OpenAIApiEdit:
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "generate"
-    CATEGORY = "Custom Nodes"
+    CATEGORY = "Semir Hoo ai"
 
     def generate(self, **kwargs):
         prompt = kwargs.get("prompt")
