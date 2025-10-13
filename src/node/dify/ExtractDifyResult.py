@@ -44,6 +44,9 @@ class ExtractDifyResult:
 
         combined_text = "\n".join(texts)
 
+        # 清理 JSON内容  防止把原图也拿出来
+        combined_text = re.sub(r"json\s*(.*?)", r"\1", combined_text, flags=re.DOTALL)
+
         # 匹配 Markdown 图片 ![alt](url)
         url_matches = re.findall(r'!\[.*?\]\((https?://[^\s\)]+)\)', combined_text)
         # 匹配裸链接 png/jpg/jpeg
