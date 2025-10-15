@@ -5,8 +5,8 @@ class CustomText:
         return {
             "required": {
                 # "text": ("STRING", {"multiline": True}),
-                "text": ("STRING", {"default": True}),
-                "text2": ("STRING", {"multiline": True}),
+                "text": ("STRING", {"default": ''}),
+                "text2": ("STRING", {"default": '',"multiline": True}),
             }
         }
 
