@@ -45,7 +45,8 @@ class ExtractDifyResult:
         combined_text = "\n".join(texts)
 
         # 清理 JSON内容  防止把原图也拿出来
-        combined_text = re.sub(r"json\s*(.*?)", r"\1", combined_text, flags=re.DOTALL)
+        # combined_text = re.sub(r"```json\s*(.*?)```", r"\1", combined_text, flags=re.DOTALL)
+        combined_text = re.sub(r"```json.*?```", "", combined_text, flags=re.DOTALL)
 
         # 匹配 Markdown 图片 ![alt](url)
         url_matches = re.findall(r'!\[.*?\]\((https?://[^\s\)]+)\)', combined_text)
@@ -61,3 +62,16 @@ class ExtractDifyResult:
 # 注册节点
 NODE_CLASS_MAPPINGS = {"ExtractDifyResult": ExtractDifyResult}
 NODE_DISPLAY_NAME_MAPPINGS = {"ExtractDifyResult": "Dify API 结果解析"}
+
+if "__main__" == __name__:
+    a = """
+    > 🖌️正在绘画
+
+```json
+{"model":"gemini-2.5-flash-image-preview","prompt":"将下衣改为彩色","n":1,"size":"1024x1024","response_format":"url","aspect_ratio":"1:1","image":["https://s3.ffire.cc/cdn/20251015/GxfgcGs6eH7Ks5yiduNhaB_.png"]}
+```
+
+![None](https://s3.ffire.cc/cdn/20251015/dMComX6Qt82bCoeEyeaSMz_hgPQyapoBsAreubuhVweZB.png)
+
+    """
+    print(ExtractDifyResult().extract_images(a))
