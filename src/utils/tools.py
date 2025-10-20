@@ -1,5 +1,8 @@
 import base64
 import io
+import json
+import math
+
 from PIL import Image
 
 def tensor_to_base64(image_tensor, with_prefix=False):
@@ -38,3 +41,52 @@ def tensor_to_buffered(image_tensor):
     buffered.seek(0)
 
     return buffered
+
+
+def to_int(value):
+    try:
+        return int(value)
+    except:
+        return value
+
+
+def is_number(num):
+    try:
+        float(num)
+        return True
+    except (ValueError, TypeError):
+        return False
+
+
+def is_nan(value):
+    try:
+        return math.isnan(value)
+    except:
+        return False
+
+def empty(value):
+    if is_nan(value):
+        return True
+    if value is None:
+        return True
+    if value is False:
+        return True
+    if isinstance(value, (str, list, tuple, dict, set)) and len(value) == 0:
+        return True
+    if isinstance(value, (int, float)) and value == 0:
+        return True
+    if isinstance(value, str) and value.strip() == "0":
+        return True
+    return False
+
+def is_json(s):
+    if not isinstance(s, str):
+        return False
+    try:
+        obj = json.loads(s)
+        return isinstance(obj, (dict, list))  # 确保是对象或数组
+    except json.JSONDecodeError:
+        return False
+
+def is_lambda(obj):
+    return callable(obj)

@@ -6,6 +6,8 @@ import torch
 import numpy as np
 import json
 
+from ...utils.tools import is_json
+
 
 class UrlToImg:
     @classmethod
@@ -18,10 +20,15 @@ class UrlToImg:
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "extract_images"
-    CATEGORY = "Semir Hoo ai"
+    CATEGORY = "Semir Hoo ai / Common"
 
     def extract_images(self, url_matches):
-        url_matches = json.loads(url_matches)
+        print("####### UrlToImg input ########")
+        print(url_matches)
+        if is_json(url_matches):
+            url_matches = json.loads(url_matches)
+        else:
+            url_matches = [url_matches]
 
         img_tensors = []
         # 处理多张图片

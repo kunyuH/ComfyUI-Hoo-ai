@@ -1,9 +1,4 @@
 import re
-import requests
-from io import BytesIO
-from PIL import Image
-import torch
-import numpy as np
 import json
 
 
