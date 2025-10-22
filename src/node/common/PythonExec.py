@@ -29,10 +29,6 @@ class PythonExecNode:
                 "param_bool": ("BOOLEAN", {"default": False , "forceInput": True}),
                 "param_image": ("IMAGE", {"default": None}),
                 "param_tensor": ("TENSOR", {"default": None}),
-                "override_input": ("STRING", {
-                    "multiline": True,
-                    "default": ""
-                })
             }
         }
 
@@ -41,13 +37,20 @@ class PythonExecNode:
     FUNCTION = "run_python"
     CATEGORY = "Semir Hoo ai / Common"
 
-    def run_python(self, code_input, param_text1=None,param_text2=None, param_bool=False, param_image=None, param_tensor=None, override_input=""):
+    def run_python(self, **kwargs):
         """
         执行 Python 代码
         返回 result, error, status
         """
+        code_input = kwargs.get("code_input")
+        param_text1 = kwargs.get("param_text1")
+        param_text2 = kwargs.get("param_text2")
+        param_bool = kwargs.get("param_bool", False)
+        param_image = kwargs.get("param_image")
+        param_tensor = kwargs.get("param_tensor")
+
         # 如果 override_input 不为空，则优先执行它
-        code_to_exec = override_input.strip() or code_input.strip()
+        code_to_exec = code_input.strip()
 
         # 定义局部变量，传入 exec
         local_vars = {
@@ -56,6 +59,7 @@ class PythonExecNode:
             "param_bool": param_bool,
             "param_image": param_image,
             "param_tensor": param_tensor,
+            "kwargs": kwargs,
 
             "result_text1": None,
             "result_text2": None,
