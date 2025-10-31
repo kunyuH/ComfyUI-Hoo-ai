@@ -3,7 +3,7 @@ from .src.node.common.UrlToImg import NODE_CLASS_MAPPINGS as UrlToImg_NodeMap, N
 from .src.node.common.CustomText import NODE_CLASS_MAPPINGS as Text_NodeMap, NODE_DISPLAY_NAME_MAPPINGS as Text_NameMap
 from .src.node.common.CustomLine import NODE_CLASS_MAPPINGS as CustomLine_NodeMap, NODE_DISPLAY_NAME_MAPPINGS as CustomLine_NameMap
 from .src.node.common.HttpRequest import NODE_CLASS_MAPPINGS as HttpRequest_NodeMap, NODE_DISPLAY_NAME_MAPPINGS as HttpRequest_NameMap
-from .src.node.common.HttpRequestV2 import NODE_CLASS_MAPPINGS as HttpRequestV2_NodeMap, NODE_DISPLAY_NAME_MAPPINGS as HttpRequestV2_NameMap
+from .src.node.common.AHttpRequestV2 import NODE_CLASS_MAPPINGS as AHttpRequestV2_NodeMap, NODE_DISPLAY_NAME_MAPPINGS as AHttpRequestV2_NameMap
 from .src.node.common.PythonExec import NODE_CLASS_MAPPINGS as PythonExec_NodeMap, NODE_DISPLAY_NAME_MAPPINGS as PythonExec_NameMap
 
 from .src.node.dify.DifyApi import NODE_CLASS_MAPPINGS as DIFY_NodeMap, NODE_DISPLAY_NAME_MAPPINGS as DIFY_NameMap
@@ -17,9 +17,9 @@ from .MultiImageURLNode import NODE_CLASS_MAPPINGS as Multi_NodeMap, NODE_DISPLA
 NODE_CLASS_MAPPINGS = {**AI_NodeMap,**AI_EDIT_NodeMap,
                        **Text_NodeMap,**CustomLine_NodeMap, **Multi_NodeMap, **DIFY_NodeMap,
                        **DifyResult_NodeMap, **UrlToImg_NodeMap,
-                       **HttpRequest_NodeMap,**HttpRequestV2_NodeMap, **PythonExec_NodeMap}
+                       **HttpRequest_NodeMap,**AHttpRequestV2_NodeMap, **PythonExec_NodeMap}
 
 NODE_DISPLAY_NAME_MAPPINGS = {**AI_NameMap,**AI_EDIT_NameMap,
                               **Text_NameMap,**CustomLine_NameMap, **Multi_NameMap, **DIFY_NameMap,
                               **DifyResult_NameMap, **UrlToImg_NameMap,
-                              **HttpRequest_NameMap,**HttpRequestV2_NameMap, **PythonExec_NameMap}
+                              **HttpRequest_NameMap,**AHttpRequestV2_NameMap, **PythonExec_NameMap}

@@ -3,7 +3,7 @@ import traceback
 
 import requests
 
-class HttpRequestV2:
+class AHttpRequestV2:
     """
     🌐 通用 HTTP 客户端节点
     支持 GET / POST / PUT / DELETE 等请求
@@ -101,9 +101,9 @@ class HttpRequestV2:
 
 # 注册节点
 NODE_CLASS_MAPPINGS = {
-    "HttpRequestV2": HttpRequestV2
+    "AHttpRequestV2": AHttpRequestV2
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "HttpRequestV2": "🌐 HTTP 客户端v2"
+    "AHttpRequestV2": "🌐 HTTP 客户端v2"
 }
