@@ -30,9 +30,9 @@ class HttpRequest:
                 }),
                 "timeout": ("INT", {"default": 60, "min": 1, "max": 600}),
             },
-            "optional": {
-                "stream": ("BOOL", {"default": False}),
-            }
+            # "optional": {
+            #     "stream": ("BOOL", {"default": False}),
+            # }
         }
 
     RETURN_TYPES = ("STRING", "STRING")
