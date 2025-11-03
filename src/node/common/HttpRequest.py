@@ -18,7 +18,7 @@ class HttpRequest:
                 "method": (["GET", "POST", "PUT", "DELETE"], {"default": "GET"}),
                 "headers": ("STRING", {
                     "multiline": True,
-                    "default": "{}"
+                    "default": "{\n  \"Content-Type\": \"application/json\"\n}"
                 }),
                 "params": ("STRING", {
                     "multiline": True,
