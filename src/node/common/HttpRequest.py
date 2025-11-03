@@ -38,7 +38,7 @@ class HttpRequest:
     RETURN_TYPES = ("STRING", "STRING")
     RETURN_NAMES = ("response_text", "status_code")
     FUNCTION = "do_request"
-    CATEGORY = "Semir Hoo ai/Common"
+    CATEGORY = "Semir Hoo ai / Common"
 
     def do_request(self, url, method="GET", headers="{}", params="{}", body="{}", timeout=60, stream=False):
         """
