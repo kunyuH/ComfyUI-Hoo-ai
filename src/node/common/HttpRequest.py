@@ -38,7 +38,7 @@ class HttpRequest:
     RETURN_TYPES = ("STRING", "STRING")
     RETURN_NAMES = ("response_text", "status_code")
     FUNCTION = "do_request"
-    CATEGORY = "Semir Hoo ai / Common"
+    CATEGORY = "Semir Hoo ai/Common"
 
     def do_request(self, url, method="GET", headers="{}", params="{}", body="{}", timeout=60, stream=False):
         """
@@ -101,27 +101,27 @@ class HttpRequest:
 
 # 注册节点
 NODE_CLASS_MAPPINGS = {
-    "HttpRequest": HttpRequest
+    "HTTP 客户端": HttpRequest,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "HttpRequest": "🌐 HTTP 客户端"
+    "HTTP 客户端": "HTTP 客户端"
 }
 
-
-# 测试独立运行
-if __name__ == "__main__":
-    node = HttpRequest()
-    result,status_code = node.do_request(
-        # url="http://10.90.130.30:3000/api/v2/mj/admin/images",
-        url="https://aigc-mj20.semirapp.com/api/v2/mj/admin/images",
-        method="POST",
-        headers=json.dumps({
-            'Content-Type': 'application/json',
-            'x-api-key': 'mjpro_test_key_6jx8k9f2l1p3qrst',
-        }),
-        # params="{}",
-        # body='{"test": "Hello ComfyUI"}',
-        timeout=30
-    )
-    print("\n结果：", result)
+#
+# # 测试独立运行
+# if __name__ == "__main__":
+#     node = HttpRequest()
+#     result,status_code = node.do_request(
+#         # url="http://10.90.130.30:3000/api/v2/mj/admin/images",
+#         url="https://aigc-mj20.semirapp.com/api/v2/mj/admin/images",
+#         method="POST",
+#         headers=json.dumps({
+#             'Content-Type': 'application/json',
+#             'x-api-key': 'mjpro_test_key_6jx8k9f2l1p3qrst',
+#         }),
+#         # params="{}",
+#         # body='{"test": "Hello ComfyUI"}',
+#         timeout=30
+#     )
+#     print("\n结果：", result)
