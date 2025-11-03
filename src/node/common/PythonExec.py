@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os, sys
 
+from ...exceptions.show_execption import ShowException
+
 # 获取当前文件所在的 ComfyUI-Hoo-ai 根目录
 # 因为自定义的代码 需要引入内部其他包
 base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
@@ -85,7 +87,8 @@ class PythonExecNode:
             # # 尝试获取变量 result
             # result = local_vars.get("result", "")
             # return (str(result), "", "success")
-
+        except ShowException as e:
+            raise e
         except Exception:
             import traceback
             return (None, None, False, None, None, traceback.format_exc(), "error")
