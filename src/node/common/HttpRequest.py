@@ -101,11 +101,11 @@ class HttpRequest:
 
 # 注册节点
 NODE_CLASS_MAPPINGS = {
-    "HTTP 客户端": HttpRequest,
+    "HttpRequest": HttpRequest,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "HTTP 客户端": "HTTP 客户端"
+    "HttpRequest": "🌐 HTTP 客户端"
 }
 
 #
