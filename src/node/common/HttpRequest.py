@@ -15,20 +15,20 @@ class HttpRequest:
         return {
             "required": {
                 "url": ("STRING", {"default": "https://example.com/api"}),
-                # "method": (["GET", "POST", "PUT", "DELETE"], {"default": "GET"}),
-                # "headers": ("STRING", {
-                #     "multiline": True,
-                #     "default": "{\n  \"Content-Type\": \"application/json\"\n}"
-                # }),
-                # "params": ("STRING", {
-                #     "multiline": True,
-                #     "default": "{ }"
-                # }),
-                # "body": ("STRING", {
-                #     "multiline": True,
-                #     "default": "{ }"
-                # }),
-                # "timeout": ("INT", {"default": 60, "min": 1, "max": 600}),
+                "method": (["GET", "POST", "PUT", "DELETE"], {"default": "GET"}),
+                "headers": ("STRING", {
+                    "multiline": True,
+                    "default": "{}"
+                }),
+                "params": ("STRING", {
+                    "multiline": True,
+                    "default": "{ }"
+                }),
+                "body": ("STRING", {
+                    "multiline": True,
+                    "default": "{ }"
+                }),
+                "timeout": ("INT", {"default": 60, "min": 1, "max": 600}),
             },
             # "optional": {
             #     "stream": ("BOOL", {"default": False}),
