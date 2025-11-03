@@ -18,15 +18,12 @@ class HttpRequest:
                 "method": (["GET", "POST", "PUT", "DELETE"], {"default": "GET"}),
                 "headers": ("STRING", {
                     "multiline": True,
-                    "default": "{\n  \"Content-Type\": \"application/json\"\n}"
                 }),
                 "params": ("STRING", {
                     "multiline": True,
-                    "default": "{ }"
                 }),
                 "body": ("STRING", {
                     "multiline": True,
-                    "default": "{ }"
                 }),
                 "timeout": ("INT", {"default": 60, "min": 1, "max": 600}),
             },
@@ -54,10 +51,13 @@ class HttpRequest:
                 except Exception:
                     print(f"[WARN] 非 JSON 字符串，将以文本形式发送: {s}")
                     return s
+            if not headers:
+                headers = {'Content-Type': 'application/json'}
+            else:
+                headers = parse_json(headers)
 
-            headers = parse_json(headers)
-            params = parse_json(params)
-            data = parse_json(body)
+            params = {} if not params else parse_json(params)
+            data = {} if not body else parse_json(body)
 
             print(f"=== 🌐 HTTP Request ===\n→ URL: {url}\n→ Method: {method}")
             print(f"→ Headers: {headers}\n→ Params: {params}\n→ Body: {data}")
